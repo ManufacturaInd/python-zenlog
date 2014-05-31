@@ -79,7 +79,7 @@ Less-priority but also important:
 
   * "theme" support, emulating some used log schemes (Xorg, Gentoo...)
   * come up with a simpler template system for theming (a layer on top
-    of the shell commands) -- a subset of CSS?
+    of the shell commands) -- a subset of CSS? See [term-css](https://www.npmjs.org/package/term-css) for the syntax
   * Use of fancy Unicode characters
   * Additional sets of levels other than debug, info, etc?
   * Always show line numbers on debug?
