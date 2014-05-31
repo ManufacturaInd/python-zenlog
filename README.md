@@ -2,6 +2,16 @@
 Zenlog is a Python logging tool for lazy people, meant for quick use of 
 prettified log messages.
 
+It is a very light wrapper around 
+[colorlog](https://github.com/borntyping/python-colorlog), a wonderful library
+for color output in logging messages. In addition, Zenlog hides
+the standard library logger hierarchy, using only the root logging
+instance.
+
+This won't fit many advanced uses, but it's good for quick scripts
+that could use easy-to-read and clear log output with a dead simple
+API.
+
 Usage
 -----
 
@@ -45,15 +55,6 @@ to
 And it should make your log messages more readable. There's many
 important features missing -- see below.
 
-Zenlog is a very light wrapper around 
-[colorlog](https://github.com/borntyping/python-colorlog), a wonderful library
-for color output in logging messages. In addition, Zenlog hides
-the standard library logger hierarchy, using only the root logging
-instance.
-
-This won't fit many advanced uses, but it's good for quick scripts
-that could use easy-to-read and clear log output with a dead simple
-API.
 
 Installation
 ------------
