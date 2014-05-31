@@ -11,5 +11,6 @@ setup(name='zenlog',
       download_url='https://github.com/ManufacturaInd/zenlog/tarball/master',
       packages=['zenlog'],
       license="GPL",
+      install_requires=['colorlog'],
      )
 
