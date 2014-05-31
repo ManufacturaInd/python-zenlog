@@ -28,11 +28,21 @@ And some not so important ones:
 import logging
 import colorlog
 
+# a theme is just a dict of strings to represent each level
+THEME = {logging.CRITICAL: " [!!!!!] ",
+         logging.ERROR:    "  [!!!]  ",
+         logging.WARNING:  "   [!]   ",
+         logging.INFO:     "    i    ",
+         logging.DEBUG:    "   ...   "}
+        
+# this class holds all the logic; see the end of the script to
+# see how it's instantiated in order to have the line 
+# "from zenlog import log" work
 class Log:
     def __init__(self, lvl=logging.DEBUG, format=None):
         self._lvl = lvl
         if not format:
-            self.format = "  %(log_color)s%(levelname)-8s%(reset)s | %(log_color)s%(message)s%(reset)s"
+            self.format = "  %(log_color)s%(styledname)-8s%(reset)s | %(log_color)s%(message)s%(reset)s"
         logging.root.setLevel(self._lvl)
         self.formatter = colorlog.ColoredFormatter(self.format)
         self.stream = logging.StreamHandler()
@@ -41,7 +51,40 @@ class Log:
         self.logger = logging.getLogger('pythonConfig')
         self.logger.setLevel(self._lvl)
         self.logger.addHandler(self.stream)
+        self.theme = THEME
+        self.extra = {"styledname": self.theme[self._lvl]}
 
+    # the magic happens here: we use the "extra" argument documented in
+    # https://docs.python.org/2/library/logging.html#logging.Logger.debug
+    # to inject new items into the logging.LogRecord objects
+    # we also create our convenience methods here
+    def critical(self, message, *args, **kwargs):
+        self.logger.critical(message, 
+                             extra={"styledname": self.theme[logging.CRITICAL]}, 
+                             *args, **kwargs)
+    crit = c = fatal = critical
+    def error(self, message, *args, **kwargs):
+        self.logger.error(message, 
+                          extra={"styledname": self.theme[logging.ERROR]}, 
+                          *args, **kwargs)
+    err = e = error
+    def warn(self, message, *args, **kwargs):
+        self.logger.warn(message, 
+                         extra={"styledname": self.theme[logging.WARNING]}, 
+                         *args, **kwargs)
+    warning = w = warn
+    def info(self, message, *args, **kwargs):
+        self.logger.info(message, 
+                         extra={"styledname": self.theme[logging.INFO]}, 
+                         *args, **kwargs)
+    inf = nfo = i = info
+    def debug(self, message, *args, **kwargs):
+        self.logger.debug(message, 
+                          extra={"styledname": self.theme[logging.DEBUG]}, 
+                          *args, **kwargs)
+    dbg = d = debug
+
+    # other convenience functions to set the global logging level
     def _parse_level(lvl):
         if lvl == logging.CRITICAL or lvl in ("critical", "crit", "c", "fatal"):
             return logging.CRITICAL
@@ -56,18 +99,6 @@ class Log:
         else:
             raise TypeError("Unrecognized logging level: %s" % lvl)
         
-    def critical(self, message, *args, **kwargs):
-        self.logger.critical(message, *args, **kwargs)
-    def error(self, message, *args, **kwargs):
-        self.logger.error(message, *args, **kwargs)
-    def warn(self, message, *args, **kwargs):
-        self.logger.warn(message, *args, **kwargs)
-    warning = warn
-    def info(self, message, *args, **kwargs):
-        self.logger.info(message, *args, **kwargs)
-    def debug(self, message, *args, **kwargs):
-        self.logger.debug(message, *args, **kwargs)
-
     def level(lvl=None):
         '''Get or set the logging level.'''
         if not lvl:
