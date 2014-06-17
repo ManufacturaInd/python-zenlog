@@ -2,16 +2,6 @@
 Zenlog is a Python logging tool for lazy people, meant for quick use of 
 prettified log messages.
 
-It is a very light wrapper around 
-[colorlog](https://github.com/borntyping/python-colorlog), a wonderful library
-for color output in logging messages. In addition, Zenlog hides
-the standard library logger hierarchy, using only the root logging
-instance.
-
-This won't fit many advanced uses, but it's good for quick scripts
-that could use easy-to-read and clear log output with a dead simple
-API.
-
 Usage
 -----
 
@@ -40,6 +30,31 @@ You can be as lazy as you want:
     
 A keystroke saved is a bone joint slightly spared! ;o)
 
+
+Design rationale
+----------------
+
+Zenlog is a very light wrapper around 
+[colorlog](https://github.com/borntyping/python-colorlog), a wonderful library
+for color output in logging messages. In addition, Zenlog hides
+the standard library logger hierarchy, using only the root logging
+instance.
+
+**Isn't this dumbing down the standard logging module?**
+
+Indeed, we're hiding away many features of the stdlib logging module
+for the sake of simplicity and sanity.
+
+Zenlog probably won't fit many advanced uses, but it's good for quick scripts
+that could use easy-to-read and clear log output with a dead simple
+API.
+
+Nevertheless, it would be desirable to make use of the powerful
+advanced features of the logging module without introducing
+unnecessary complexity to the interface. Pull requests and suggestions
+are very welcome!
+
+
 Switching from the standard logging library
 -------------------------------------------
 
@@ -52,8 +67,12 @@ to
 
     from zenlog import logging
 
-And it should make your log messages more readable. There's many
-important features missing -- see below.
+And it should make your log messages more readable. 
+
+> **Note:** This is only possible if you're directly acessing 
+the root logger in your script -- that is, you're not using 
+advanced features like multiple loggers or any kind of custom 
+changes to the standard logging behavior.
 
 
 Installation
@@ -79,7 +98,7 @@ Less-priority but also important:
 
   * "theme" support, emulating some used log schemes (Xorg, Gentoo...)
   * come up with a simpler template system for theming (a layer on top
-    of the shell commands) -- a subset of CSS?
+    of the shell commands) -- a subset of CSS? See [term-css](https://www.npmjs.org/package/term-css) for the syntax
   * Use of fancy Unicode characters
   * Additional sets of levels other than debug, info, etc?
   * Always show line numbers on debug?
