@@ -31,6 +31,14 @@ You can be as lazy as you want:
 A keystroke saved is a bone joint slightly spared! ;o)
 
 
+Installation
+------------
+
+Also simple:
+
+    pip install zenlog
+
+
 Design rationale
 ----------------
 
@@ -42,12 +50,12 @@ instance.
 
 **Isn't this dumbing down the standard logging module?**
 
-Indeed, we're hiding away many features of the stdlib logging module
+Indeed, many features of the stdlib logging module are hidden away
 for the sake of simplicity and sanity.
 
 Zenlog probably won't fit many advanced uses, but it's good for quick scripts
 that could use easy-to-read and clear log output with a dead simple
-API.
+interface.
 
 Nevertheless, it would be desirable to make use of the powerful
 advanced features of the logging module without introducing
@@ -75,12 +83,13 @@ advanced features like multiple loggers or any kind of custom
 changes to the standard logging behavior.
 
 
-Installation
-------------
+Testing
+-------
 
-Also simple:
+Unit tests are done using Nose:
 
-    pip install zenlog
+    nosetests tests.py
+
 
 Missing features
 ----------------
