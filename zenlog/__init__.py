@@ -8,9 +8,9 @@ THEME = {logging.CRITICAL: " [!!!!!] ",
          logging.WARNING:  "   [!]   ",
          logging.INFO:     "    i    ",
          logging.DEBUG:    "   ...   "}
-        
+
 # this class holds all the logic; see the end of the script to
-# see how it's instantiated in order to have the line 
+# see how it's instantiated in order to have the line
 # "from zenlog import log" work
 class Log:
     def __init__(self, lvl=logging.DEBUG, format=None):
@@ -33,28 +33,28 @@ class Log:
     # to inject new items into the logging.LogRecord objects
     # we also create our convenience methods here
     def critical(self, message, *args, **kwargs):
-        self.logger.critical(message, 
-                             extra={"styledname": self.theme[logging.CRITICAL]}, 
+        self.logger.critical(message,
+                             extra={"styledname": self.theme[logging.CRITICAL]},
                              *args, **kwargs)
     crit = c = fatal = critical
     def error(self, message, *args, **kwargs):
-        self.logger.error(message, 
-                          extra={"styledname": self.theme[logging.ERROR]}, 
+        self.logger.error(message,
+                          extra={"styledname": self.theme[logging.ERROR]},
                           *args, **kwargs)
     err = e = error
     def warn(self, message, *args, **kwargs):
-        self.logger.warn(message, 
-                         extra={"styledname": self.theme[logging.WARNING]}, 
+        self.logger.warn(message,
+                         extra={"styledname": self.theme[logging.WARNING]},
                          *args, **kwargs)
     warning = w = warn
     def info(self, message, *args, **kwargs):
-        self.logger.info(message, 
-                         extra={"styledname": self.theme[logging.INFO]}, 
+        self.logger.info(message,
+                         extra={"styledname": self.theme[logging.INFO]},
                          *args, **kwargs)
     inf = nfo = i = info
     def debug(self, message, *args, **kwargs):
-        self.logger.debug(message, 
-                          extra={"styledname": self.theme[logging.DEBUG]}, 
+        self.logger.debug(message,
+                          extra={"styledname": self.theme[logging.DEBUG]},
                           *args, **kwargs)
     dbg = d = debug
 
@@ -72,12 +72,12 @@ class Log:
             return logging.DEBUG
         else:
             raise TypeError("Unrecognized logging level: %s" % lvl)
-        
+
     def level(self, lvl=None):
         '''Get or set the logging level.'''
         if not lvl:
             return self._lvl
-        self._lvl = self._parse_level(self._lvl)
+        self._lvl = self._parse_level(lvl)
         logging.root.setLevel(self._lvl)
 
 log = Log()
