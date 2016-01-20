@@ -59,7 +59,7 @@ class Log:
     dbg = d = debug
 
     # other convenience functions to set the global logging level
-    def _parse_level(lvl):
+    def _parse_level(self, lvl):
         if lvl == logging.CRITICAL or lvl in ("critical", "crit", "c", "fatal"):
             return logging.CRITICAL
         elif lvl == logging.ERROR or lvl in ("error", "err", "e"):
@@ -73,7 +73,7 @@ class Log:
         else:
             raise TypeError("Unrecognized logging level: %s" % lvl)
         
-    def level(lvl=None):
+    def level(self, lvl=None):
         '''Get or set the logging level.'''
         if not lvl:
             return self._lvl
