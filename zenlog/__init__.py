@@ -33,31 +33,31 @@ class Log:
     # to inject new items into the logging.LogRecord objects
     # we also create our convenience methods here
     def critical(self, message, *args, **kwargs):
-        for line in message.splitlines():
+        for line in str(message).splitlines():
             self.logger.critical(line,
                                  extra={"styledname": self.theme[logging.CRITICAL]},
                                  *args, **kwargs)
     crit = c = fatal = critical
     def error(self, message, *args, **kwargs):
-        for line in message.splitlines():
+        for line in str(message).splitlines():
             self.logger.error(line,
                               extra={"styledname": self.theme[logging.ERROR]},
                               *args, **kwargs)
     err = e = error
     def warn(self, message, *args, **kwargs):
-        for line in message.splitlines():
+        for line in str(message).splitlines():
             self.logger.warn(line,
                              extra={"styledname": self.theme[logging.WARNING]},
                              *args, **kwargs)
     warning = w = warn
     def info(self, message, *args, **kwargs):
-        for line in message.splitlines():
+        for line in str(message).splitlines():
             self.logger.info(line,
                              extra={"styledname": self.theme[logging.INFO]},
                              *args, **kwargs)
     inf = nfo = i = info
     def debug(self, message, *args, **kwargs):
-        for line in message.splitlines():
+        for line in str(message).splitlines():
             self.logger.debug(line,
                               extra={"styledname": self.theme[logging.DEBUG]},
                               *args, **kwargs)
