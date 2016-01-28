@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='zenlog',
-      version='1.0',
+      version='1.1',
       description='Logging for the lazy',
       author='Ricardo Lafuente',
       author_email='r@manufacturaindependente.org',
