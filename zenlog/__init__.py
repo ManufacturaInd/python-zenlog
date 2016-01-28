@@ -78,6 +78,7 @@ class Log:
         if not lvl:
             return self._lvl
         self._lvl = self._parse_level(lvl)
+        self.stream.setLevel(self._lvl)
         logging.root.setLevel(self._lvl)
 
 log = Log()
