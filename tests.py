@@ -13,7 +13,6 @@ class TestSetLevelMethods(unittest.TestCase):
 
     def help_testing_options(self, logging_level, args):
         for level in args:
-            print level
             self.assertTrue(self.set_level(level, logging_level))
 
     def test_set_critical_level(self):
