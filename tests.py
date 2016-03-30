@@ -1,13 +1,21 @@
 import zenlog
 import logging
+import unittest
 
 
-def test_setlevel():
-    log = zenlog.Log()
-    log.level('info')
-    assert log.level() == logging.INFO
-    log.level('warn')
-    assert log.level() == logging.WARNING
+class TestSetLevelMethods(unittest.TestCase):
+    def setUp(self):
+        self.log = zenlog.log
+
+    def set_level(self, level, logging_level):
+        self.log.level(level)
+        return self.log.level() == logging_level
+
+    def test_set_info_level(self):
+        self.assertTrue(self.set_level('info', logging.INFO))
+
+    def test_set_info_warn(self):
+        self.assertTrue(self.set_level('warn', logging.WARN))
 
 
 def test_output():
@@ -21,3 +29,7 @@ def test_output():
     log.critical("OH NO everything is on fire")
     log.c("OH NO everything is on fire")
     log.crit("OH NO everything is on fire")
+
+
+if __name__ == '__main__':
+    unittest.main()
