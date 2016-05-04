@@ -9,10 +9,22 @@ THEME = {logging.CRITICAL: " [!!!!!] ",
          logging.INFO:     "    i    ",
          logging.DEBUG:    "   ...   "}
 
-# this class holds all the logic; see the end of the script to
-# see how it's instantiated in order to have the line
-# "from zenlog import log" work
+
 class Log:
+    """
+    this class holds all the logic; see the end of the script to
+    see how it's instantiated in order to have the line
+    "from zenlog import log" work
+    """
+
+    aliases = {
+        logging.CRITICAL: ("critical", "crit", "c", "fatal"),
+        logging.ERROR:    ("error", "err", "e"),
+        logging.WARNING:  ("warning", "warn", "w"),
+        logging.INFO:     ("info", "inf", "nfo", "i"),
+        logging.DEBUG:    ("debug", "dbg", "d")
+    }
+
     def __init__(self, lvl=logging.DEBUG, format=None):
         self._lvl = lvl
         if not format:
@@ -38,24 +50,28 @@ class Log:
                                  extra={"styledname": self.theme[logging.CRITICAL]},
                                  *args, **kwargs)
     crit = c = fatal = critical
+
     def error(self, message, *args, **kwargs):
         for line in str(message).splitlines():
             self.logger.error(line,
                               extra={"styledname": self.theme[logging.ERROR]},
                               *args, **kwargs)
     err = e = error
+
     def warn(self, message, *args, **kwargs):
         for line in str(message).splitlines():
             self.logger.warn(line,
                              extra={"styledname": self.theme[logging.WARNING]},
                              *args, **kwargs)
     warning = w = warn
+
     def info(self, message, *args, **kwargs):
         for line in str(message).splitlines():
             self.logger.info(line,
                              extra={"styledname": self.theme[logging.INFO]},
                              *args, **kwargs)
     inf = nfo = i = info
+
     def debug(self, message, *args, **kwargs):
         for line in str(message).splitlines():
             self.logger.debug(line,
@@ -65,18 +81,10 @@ class Log:
 
     # other convenience functions to set the global logging level
     def _parse_level(self, lvl):
-        if lvl == logging.CRITICAL or lvl in ("critical", "crit", "c", "fatal"):
-            return logging.CRITICAL
-        elif lvl == logging.ERROR or lvl in ("error", "err", "e"):
-            return logging.ERROR
-        elif lvl == logging.WARNING or lvl in ("warning", "warn", "w"):
-            return logging.WARNING
-        elif lvl == logging.INFO or lvl in ("info", "inf", "nfo", "i"):
-            return logging.INFO
-        elif lvl == logging.DEBUG or lvl in ("debug", "dbg", "d"):
-            return logging.DEBUG
-        else:
-            raise TypeError("Unrecognized logging level: %s" % lvl)
+        for log_level in self.aliases:
+            if lvl == log_level or lvl in self.aliases[log_level]:
+                return log_level
+        raise TypeError("Unrecognized logging level: %s" % lvl)
 
     def level(self, lvl=None):
         '''Get or set the logging level.'''
