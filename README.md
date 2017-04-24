@@ -21,7 +21,7 @@ It should then be easy to get going:
 
 Output:
 
-![Zenlog output](http://manufacturaindependente.com/dump/zenlog1.png)
+![Zenlog output](http://koizo.org/persistent/zenlog1.png)
 
 You can be as lazy as you want:
 
