@@ -21,7 +21,7 @@ It should then be easy to get going:
 
 Output:
 
-![Zenlog output](http://koizo.org/persistent/zenlog1.png)
+![Zenlog output](https://github.com/ManufacturaInd/python-zenlog/raw/master/colorlogs.png)
 
 You can be as lazy as you want:
 
