@@ -28,7 +28,8 @@ class Log:
     def __init__(self, lvl=logging.DEBUG, format=None):
         self._lvl = lvl
         if not format:
-            self.format = "  %(log_color)s%(styledname)-8s%(reset)s | %(log_color)s%(message)s%(reset)s"
+            format = "  %(log_color)s%(styledname)-8s%(reset)s | %(log_color)s%(message)s%(reset)s"
+        self.format = format
         logging.root.setLevel(self._lvl)
         self.formatter = colorlog.ColoredFormatter(self.format)
         self.stream = logging.StreamHandler()
