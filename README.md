@@ -82,6 +82,18 @@ the root logger in your script -- that is, you're not using
 advanced features like multiple loggers or any kind of custom 
 changes to the standard logging behavior.
 
+Alternative Import
+------------------
+
+You can also import it like this:
+
+    try: from zenlog import log as logging 
+    except: import logging
+    logging.info("info")
+
+That way if zenlog is not installed the standard logging moddule is used and logging still works.
+Or if you want to replace the default logger with zenlog without changing the code you can import it like this.
+
 
 Testing
 -------
